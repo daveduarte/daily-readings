@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today's Readings from the Church</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-4">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-2">📿 Today's Readings from the Church</h1>
+    <p class="text-center text-md mb-4">Thursday, June 19, 2025 — Optional Memorial of St. Romuald, Abbot</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <button onclick="showSection('readings')" class="bg-blue-500 text-white p-4 rounded-xl shadow">📖 Today's Readings</button>
+      <button onclick="showSection('reflection')" class="bg-green-500 text-white p-4 rounded-xl shadow">🪞 Reflection</button>
+      <button onclick="showSection('live')" class="bg-yellow-500 text-white p-4 rounded-xl shadow">👣 Live the Word</button>
+      <button onclick="showSection('prayer')" class="bg-purple-500 text-white p-4 rounded-xl shadow">🙏 Prayer for the Day</button>
+      <button onclick="showSection('quotes')" class="bg-pink-500 text-white p-4 rounded-xl shadow">💬 Inspiring Quotes</button>
+      <button onclick="showSection('saint')" class="bg-red-500 text-white p-4 rounded-xl shadow">🕊️ Saint of the Day</button>
+    </div>
+
+    <div class="bg-white p-4 rounded-xl shadow text-center text-lg italic mb-6">
+      "The place God calls you to is the place where your deep gladness and the world’s deep hunger meet." — Frederick Buechner
+    </div>
+
+    <div id="readings" class="hidden">
+      <h2 class="text-2xl font-semibold mb-2">📖 Today's Readings</h2>
+      <button onclick="readAloud('readingsContent')" class="mb-4 bg-blue-300 text-white px-3 py-1 rounded">🔊 Play</button>
+      <div id="readingsContent">Loading...</div>
+    </div>
+
+    <div id="reflection" class="hidden">
+      <h2 class="text-2xl font-semibold mb-2">🪞 Reflection</h2>
+      <button onclick="readAloud('reflectionContent')" class="mb-4 bg-green-300 text-white px-3 py-1 rounded">🔊 Play</button>
+      <div id="reflectionContent">Loading...</div>
+    </div>
+
+    <div id="live" class="hidden">
+      <h2 class="text-2xl font-semibold mb-2">👣 Live the Word</h2>
+      <button onclick="readAloud('liveContent')" class="mb-4 bg-yellow-300 text-white px-3 py-1 rounded">🔊 Play</button>
+      <div id="liveContent">Loading...</div>
+    </div>
+
+    <div id="prayer" class="hidden">
+      <h2 class="text-2xl font-semibold mb-2">🙏 Prayer for the Day</h2>
+      <button onclick="readAloud('prayerContent')" class="mb-4 bg-purple-300 text-white px-3 py-1 rounded">🔊 Play</button>
+      <div id="prayerContent">Loading...</div>
+    </div>
+
+    <div id="quotes" class="hidden">
+      <h2 class="text-2xl font-semibold mb-2">💬 Inspiring Quotes</h2>
+      <button onclick="readAloud('quotesContent')" class="mb-4 bg-pink-300 text-white px-3 py-1 rounded">🔊 Play</button>
+      <div id="quotesContent">Loading...</div>
+    </div>
+
+    <div id="saint" class="hidden">
+      <h2 class="text-2xl font-semibold mb-2">🕊️ Saint of the Day</h2>
+      <button onclick="readAloud('saintContent')" class="mb-4 bg-red-300 text-white px-3 py-1 rounded">🔊 Play</button>
+      <div id="saintContent">Loading...</div>
+    </div>
+  </div>
+
+  <script>
+    function showSection(id) {
+      const sections = ['readings', 'reflection', 'live', 'prayer', 'quotes', 'saint'];
+      sections.forEach(section => {
+        document.getElementById(section).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function readAloud(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 1;
+      speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>
