@@ -61,34 +61,40 @@
     </div>
   </div>
 
-  <script>
-    function readAloud(eid) {
-      const text = document.getElementById(eid).innerText;
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang='en-US'; u.rate=1;
-      speechSynthesis.speak(u);
-    }
+<script>
+  function readAloud(eid) {
+    const text = document.getElementById(eid).innerText;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 1;
+    speechSynthesis.speak(u);
+  }
 
-    async function loadSection(id) {
-      const sections = ['readings','reflection','live','prayer','quotes','saint'];
-      sections.forEach(s => document.getElementById(s).classList.add('hidden'));
-      document.getElementById(id).classList.remove('hidden');
+  async function loadSection(id) {
+    const sections = ['readings','reflection','live','prayer','quotes','saint'];
+    sections.forEach(s => document.getElementById(s).classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
 
-      if (id === 'reflection') {
-        document.getElementById('reflectionContent').innerText = 'Loading reflection...';
-        try {
-          const response = await fetch('https://daily-readings-backend.onrender.com/api/reflection', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({})
-          });
-          const data = await response.json();
-          document.getElementById('reflectionContent').innerText = data.reflection;
-        } catch (err) {
-          document.getElementById('reflectionContent').innerText = 'Failed to load reflection.';
-        }
+    if (id === 'reflection') {
+      document.getElementById('reflectionContent').innerText = 'Loading reflection...';
+      try {
+        console.log('🔄 Sending request to backend...');
+        const response = await fetch('https://daily-readings-backend.onrender.com/api/reflection', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({})
+        });
+
+        const data = await response.json();
+        console.log('✅ Response from backend:', data);
+        document.getElementById('reflectionContent').innerText = data.reflection;
+      } catch (err) {
+        console.error('❌ Fetch error:', err);
+        document.getElementById('reflectionContent').innerText = 'Failed to load reflection.';
       }
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
